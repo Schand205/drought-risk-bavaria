@@ -17,8 +17,8 @@ This project builds a drought risk forecasting system for Bavaria using the **SP
 
 - Automated data ingestion from DWD, ERA5/Copernicus, LfU Bayern, and CAMELS-DE
 - SPEI-3 and SPEI-12 calculation pipeline
-- LSTM (PyTorch) vs. Random Forest (scikit-learn) model comparison
-- SHAP-based explainability for feature importance
+- Temporal Fusion Transformer (TFT) vs. Random Forest (scikit-learn) model comparison
+- Built-in TFT variable importance + SHAP-based explainability for Random Forest
 - Interactive Streamlit dashboard for regional drought visualization
 
 ---
@@ -49,7 +49,7 @@ drought-risk-bavaria/
 ├── notebooks/
 │   ├── 01_data_exploration.ipynb
 │   ├── 02_spei_calculation.ipynb
-│   ├── 03_model_lstm.ipynb
+│   ├── 03_model_tft.ipynb
 │   └── 04_model_rf_shap.ipynb
 │
 ├── src/
@@ -61,8 +61,8 @@ drought-risk-bavaria/
 │   ├── preprocessing/        # Harmonization, resampling, SPEI
 │   │   ├── harmonize.py
 │   │   └── spei.py
-│   ├── models/               # LSTM and Random Forest implementations
-│   │   ├── lstm.py
+│   ├── models/               # TFT and Random Forest implementations
+│   │   ├── tft.py
 │   │   └── random_forest.py
 │   └── dashboard/            # Streamlit app
 │       └── app.py
@@ -114,7 +114,7 @@ python src/preprocessing/spei.py
 ### 5. Train models
 
 ```bash
-python src/models/lstm.py
+python src/models/tft.py
 python src/models/random_forest.py
 ```
 
@@ -132,7 +132,7 @@ streamlit run src/dashboard/app.py
 |---|---|
 | Data wrangling | `pandas`, `xarray`, `geopandas` |
 | Climate data | `wetterdienst`, `cdsapi`, `climate-indices` |
-| ML | `scikit-learn`, `PyTorch` |
+| ML | `scikit-learn`, `PyTorch`, `pytorch-forecasting` |
 | Explainability | `shap` |
 | Visualization | `matplotlib`, `plotly`, `streamlit` |
 
@@ -142,7 +142,7 @@ streamlit run src/dashboard/app.py
 
 | Model | Strengths | Limitations |
 |---|---|---|
-| LSTM | Captures temporal dependencies | Requires more data, less interpretable |
+| Temporal Fusion Transformer | Captures temporal dependencies, built-in interpretability | Requires more data and tuning |
 | Random Forest | Fast, interpretable via SHAP | Limited temporal memory |
 
 Target metric: **RMSE** and **Pearson r** on SPEI-3 and SPEI-12.
@@ -154,7 +154,7 @@ Target metric: **RMSE** and **Pearson r** on SPEI-3 and SPEI-12.
 - [x] Project setup & data source identification
 - [ ] Automated ingestion pipeline
 - [ ] SPEI calculation & validation
-- [ ] LSTM baseline model
+- [ ] Temporal Fusion Transformer baseline model
 - [ ] Random Forest + SHAP analysis
 - [ ] Streamlit dashboard
 - [ ] Potential cooperation with LfU Bayern / DWD
