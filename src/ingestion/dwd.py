@@ -5,18 +5,27 @@ from datetime import datetime
 from dateutil.relativedelta import relativedelta
 
 # Get the date two months ago 
-end_date = datetime.now() - relativedelta(months=1)
-end_date_str = end_date.strftime("%Y-%m-%d")
+end_date_raw = datetime.now() - relativedelta(months=1)
+end_date_str = end_date_raw.strftime("%Y-%m-%d")
+
+settings = Settings(
+    ts_shape="long",
+    ts_humanize=True,
+    ts_convert_units=True
+)
+
+# sequence: (lon_min, lat_min, lon_max, lat_max)
+bbox = (8.9, 47.2, 13.8, 50.6)  # Bayern
 
 request = DwdObservationRequest(
-    parameter=["temperature_air_mean_2m", "precipitation_height"],
-    resolution="monthly",
+    parameters=[
+        ("monthly", "climate_summary", "temperature_air_mean_2m"),
+        ("monthly", "climate_summary", "precipitation_height"),
+    ],
     start_date="2000-01-01",
     end_date=end_date_str,
     settings=Settings(ts_shape="long")
-).filter_by_bbox(
-    lat_min=47.2, lat_max=50.6,   # Bayern
-    lon_min=8.9,  lon_max=13.8
-)
+).filter_by_bbox(*bbox)
 
 df = request.values.all().df
+# print(df["parameter"].unique())
