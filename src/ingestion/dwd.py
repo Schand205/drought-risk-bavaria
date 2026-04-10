@@ -1,8 +1,17 @@
 from wetterdienst.provider.dwd.observation import DwdObservationRequest
 from wetterdienst import Settings
 
+import pandas as pd
+
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
+
+from pathlib import Path
+
+# path relativ to working directory
+data_folder = Path("../../data/raw")
+file_save_name = data_folder / "temp_and_precept_height.csv"
+
 
 # Get the date two months ago 
 end_date_raw = datetime.now() - relativedelta(months=1)
@@ -27,5 +36,6 @@ request = DwdObservationRequest(
     settings=Settings(ts_shape="long")
 ).filter_by_bbox(*bbox)
 
-df = request.values.all().df
-# print(df["parameter"].unique())
+df = request.values.all().df    # .df is a polars df
+
+df.write_csv(file_save_name)
