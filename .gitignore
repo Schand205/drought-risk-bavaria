@@ -1,0 +1,126 @@
+# ======================
+# Python
+# ======================
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyo
+*.pyd
+.Python
+*.egg
+*.egg-info/
+dist/
+build/
+eggs/
+parts/
+var/
+sdist/
+develop-eggs/
+.installed.cfg
+lib/
+lib64/
+
+# ======================
+# Environments
+# ======================
+.env
+.venv
+env/
+venv/
+ENV/
+.conda/
+*.env
+
+# ======================
+# Jupyter Notebooks
+# ======================
+.ipynb_checkpoints/
+*/.ipynb_checkpoints/*
+*.ipynb_checkpoints
+
+# ======================
+# Data (never commit raw or processed data)
+# ======================
+data/raw/
+data/processed/
+data/features/
+
+# Specific file formats
+*.csv
+*.parquet
+*.nc
+*.h5
+*.hdf5
+*.feather
+*.zarr
+*.tif
+*.tiff
+*.geojson
+*.shp
+*.shx
+*.dbf
+*.prj
+
+# ======================
+# CDS API credentials
+# ======================
+.cdsapirc
+cdsapirc
+
+# ======================
+# Model weights & outputs
+# ======================
+models/
+*.pt
+*.pth
+*.pkl
+*.joblib
+*.ckpt
+
+# ======================
+# Logs
+# ======================
+logs/
+*.log
+*.out
+
+# ======================
+# Wetterdienst cache
+# ======================
+.cache/
+cache/
+
+# ======================
+# OS
+# ======================
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Thumbs.db
+ehthumbs.db
+desktop.ini
+
+# ======================
+# IDEs & Editors
+# ======================
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.spyderproject.cfg
+.spyproject/
+
+# ======================
+# Streamlit
+# ======================
+.streamlit/secrets.toml
+
+# ======================
+# Testing
+# ======================
+.pytest_cache/
+.coverage
+htmlcov/
